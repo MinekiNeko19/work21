@@ -7,16 +7,18 @@ int main() {
     int from_server;
 
     from_server = client_handshake( &to_server );
-    printf("pid: %d\tfrom_client: %d\tto_server: %d\n", getpid(), from_server, to_server);
-    
-    char sc[10];
-    read(from_server, sc, 10);
-    printf("6. client got from server: %s\n", sc);
 
-    char input[10];
+    // gets user input
+    char input[100];
     printf("Enter input: ");
-    fgets(input, 10, stdin);
-    write(to_server, input, 10);
-    printf("2. client sends name of SP to server\n");
+    fgets(input, 100, stdin);
 
+    // sends input to server
+    write(to_server, input, 100);
+
+    // receives input from server
+    read(from_server, input, 100);
+
+    // prints returned input
+    printf("Server returned: %s\n", input);
 }
